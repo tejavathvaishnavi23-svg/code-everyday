@@ -43,7 +43,7 @@ print(max_consecutive_ones([1,0,1,1,0]))
 print(max_consecutive_ones([1,1,1]))
 print(max_consecutive_ones([0,0,0]))
 
-#Given a string s, find the length of the longest substring without repeating characters.
+#3.Given a string s, find the length of the longest substring without repeating characters.
 #input s = "abcabcbb"
 def longest_substring(s):
     char_set = set()
@@ -58,7 +58,7 @@ def longest_substring(s):
     return max_length
 print(longest_substring("abcabcbb"))
 
-#Given an integer array nums and an integer k, return the total number of continuous subarrays whose sum equals to k.
+#4.Given an integer array nums and an integer k, return the total number of continuous subarrays whose sum equals to k.
 def subarray_sum(nums, k):
     count = 0
     current_sum = 0
@@ -70,3 +70,77 @@ def subarray_sum(nums, k):
         prefix_map[current_sum] = prefix_map.get(current_sum, 0) + 1
     return count
 print(subarray_sum(nums, 3))
+
+#5.Given an integer n print centered pyramid where each row contains
+# increasing numbers starting from 1 upto row numbers then decreasing back to 1.
+def print_pyramid(n):
+    for i in range(1, n + 1):
+        # print spaces
+        print(" "* (n-i),end=" ")
+        # increasing number
+        for j in range(1, i+1):
+            print(j,end=" ")
+        # decreasing number
+        for j in range(i-1,0,-1):
+            print(j,end=" ")
+        print()
+print_pyramid(5)
+
+#6.Given two strigs check they are anagrams?
+def is_anagram(s1, s2):
+    if len(s1) != len(s2):
+        return False
+    if sorted(s1) == sorted(s2):
+        return True
+    else:
+        return False
+print(is_anagram("listen", "silent"))
+
+#7.Given an array of integer move end while maintaining the relative order
+#non zero elements.
+def move_zeroes(nums):
+    pos = 0
+    for  i in range(len(nums)):
+        if nums[i] != 0:
+            nums[pos] = nums[i]
+            pos += 1
+    for i in range(pos, len(nums)):
+        nums[i] = 0
+    return nums
+print(move_zeroes([1, 0, 1, 0, 13]))
+
+#8.Valid parentheses
+def is_valid(s):
+    stack = []
+    mapping ={
+        ')':'(',
+        '{':'}',
+        '[':']'
+    }
+    for char in s:
+        if char in mapping:
+            if not stack or stack[-1] != mapping[char]:
+                return False
+            stack.pop()
+        else:
+            stack.append(char)
+    return len(stack) == 0
+print(is_valid("{[()]}"))
+print(is_valid("[()}"))
+
+#9.Given a string containing letters and digits extract all groups of
+#consecutive digits and return largest number among them.
+def largest_number(s):
+    numbers = []
+    current_num = ""
+    for char in s:
+        if char.isdigit():
+            current_num += char
+        else:
+            if current_num:
+                numbers.append(int(current_num))
+                current_num = ""
+    if current_num:
+        numbers.append(int(current_num))
+    return max(numbers) if numbers else 0
+print(largest_number(["abc123xyz45ab678"]))
