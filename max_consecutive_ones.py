@@ -42,3 +42,31 @@ def max_consecutive_ones(nums):
 print(max_consecutive_ones([1,0,1,1,0]))
 print(max_consecutive_ones([1,1,1]))
 print(max_consecutive_ones([0,0,0]))
+
+#Given a string s, find the length of the longest substring without repeating characters.
+#input s = "abcabcbb"
+def longest_substring(s):
+    char_set = set()
+    left = 0
+    max_length = 0
+    for right in range(len(s)):
+        while s[right] in char_set:
+            char_set.remove(s[left])
+            left += 1
+        char_set.add(s[right])
+        max_length = max(max_length, right - left + 1)
+    return max_length
+print(longest_substring("abcabcbb"))
+
+#Given an integer array nums and an integer k, return the total number of continuous subarrays whose sum equals to k.
+def subarray_sum(nums, k):
+    count = 0
+    current_sum = 0
+    prefix_map = {0:1}
+    for num in nums:
+        current_sum += num
+        if current_sum - k in prefix_map:
+            count += prefix_map[current_sum - k]
+        prefix_map[current_sum] = prefix_map.get(current_sum, 0) + 1
+    return count
+print(subarray_sum(nums, 3))
