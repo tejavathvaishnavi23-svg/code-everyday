@@ -144,3 +144,41 @@ def largest_number(s):
         numbers.append(int(current_num))
     return max(numbers) if numbers else 0
 print(largest_number(["abc123xyz45ab678"]))
+
+#10.Given an integer array nums, return an array answer such that:
+#answer[i] = product of all elements except nums[i]
+def product_except(nums):
+    n = len(nums)
+    answer = [1]*n
+    # left products
+    left = 1
+    for i in range(n):
+        answer[i] = left
+        left *= nums[i]
+    # right products
+    right = 1
+    for i in range(n-1, -1, -1):
+        answer[i] *= right
+        right *= nums[i]
+    return answer
+print(product_except([1,2,3,4,5,6,7,8,9]))
+
+#11.Given a 2D matrix, return a new 2D matrix where each element
+# result[i][j] is the sum of all elements in row i except nums[i][j] itself.
+def sum_except(matrix):
+    m = len(matrix)
+    n = len(matrix[0])
+    result = [[1] * n for i in range(m)]
+    for i in range(m):
+        # left pass:sum of all elements to the left
+        left = 0
+        for j in range(n):
+            result[i][j] = left
+            left += matrix[i][j]
+        # right pass: add sum of all elements to the right
+        right = 0
+        for j in range(n-1, -1, -1):
+            result[i][j] = right
+            right += matrix[i][j]
+    return result
+print(sum_except([[1,2,3],[4,5,6],[7,8,9]]))
