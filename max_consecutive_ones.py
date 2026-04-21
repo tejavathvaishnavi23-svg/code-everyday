@@ -182,3 +182,42 @@ def sum_except(matrix):
             right += matrix[i][j]
     return result
 print(sum_except([[1,2,3],[4,5,6],[7,8,9]]))
+
+#12.Given an integer array nums, return an array answer such that answer[i]
+#is equal to the product of all elements of nums except nums[i].
+def productExceptSelf(nums):
+    n = len(nums)
+    answer = [1]*n
+    #fill prefix products
+    prefix = 1
+    for i in range(n):
+        answer[i] = prefix
+        prefix *= nums[i]
+    #multiply suffix products
+    suffix = 1
+    for i in range(n-1, -1, -1):
+        answer[i] *= suffix
+        suffix *= nums[i]
+    return answer
+print(productExceptSelf([1,2,3,4,]))
+
+#13.Given an array height where each element represents the height of a bar,
+#calculate how much rainwater can be trapped between the bars after raining.
+def trap(height):
+    n = len(height)
+    #prefix max
+    prefix_max = [0] * n
+    prefix_max[0] = height[0]
+    for i in range(1, n):
+        prefix_max[i] = max(prefix_max[i-1], height[i])
+    #suffix max
+    suffix_max = [0] * n
+    suffix_max[n-1] = height[n-1]
+    for i in range(n-2, -1, -1):
+        suffix_max[i] = max(suffix_max[i+1], height[i])
+    #calculate water
+    water = 0
+    for i in range(n):
+        water += min(prefix_max[i], suffix_max[i]) - height[i]
+    return water
+print(trap([4,2,0,3,2,5]))
