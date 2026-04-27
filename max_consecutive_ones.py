@@ -201,7 +201,7 @@ def productExceptSelf(nums):
     return answer
 print(productExceptSelf([1,2,3,4,]))
 
-#13.Given an array height where each element represents the height of a bar,
+#Given an array height where each element represents the height of a bar,
 #calculate how much rainwater can be trapped between the bars after raining.
 def trap(height):
     n = len(height)
