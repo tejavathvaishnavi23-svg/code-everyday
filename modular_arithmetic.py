@@ -1,4 +1,4 @@
-def count_pairs(arr,m):
+def count_pairs(arr, m):
     freq = [0]*m
     count = 0
     for num in arr:
